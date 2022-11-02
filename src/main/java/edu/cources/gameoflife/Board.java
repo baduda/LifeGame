@@ -38,13 +38,35 @@ public class Board {
     }
 
     public int countLifeCells() {
-        // todo: подсчет живых клеток
-        return 1;
+        int count = 0;
+        for (boolean[] row : cells) {
+            for (boolean cell : row) {
+                if (cell) count++;
+            }
+        }
+        return count;
     }
 
-    private int countNeighbors(int x, int y) {
-        //todo: добавить логику подсчета соседей
-        return (int) (Math.random() * 5);
+    public int countNeighbors(int x, int y) {
+        int count = 0;
+        count += isLifeCell(x - 1, y - 1);
+        count += isLifeCell(x, y - 1);
+        count += isLifeCell(x + 1, y - 1);
+        count += isLifeCell(x - 1, y);
+        count += isLifeCell(x + 1, y);
+        count += isLifeCell(x - 1, y + 1);
+        count += isLifeCell(x, y + 1);
+        count += isLifeCell(x + 1, y + 1);
+        return count;
+    }
+
+    private int isLifeCell(int x, int y) {
+        if (x < 0) return 0;
+        if (x >= cells.length) return 0;
+        if (y < 0) return 0;
+        if (y >= cells[x].length) return 0;
+        if (cells[x][y]) return 1;
+        return 0;
     }
 
     public void printBoard() {
